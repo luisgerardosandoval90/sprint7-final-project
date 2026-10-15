@@ -42,9 +42,11 @@ El análisis integra **3 fuentes de datos CSV** ubicadas en la carpeta `/dataset
 ## 🛠️ Etapas del Análisis
 
 El desarrollo sigue un pipeline estructurado en 8 pasos principales:
-1. **Paso 1 & 2: Carga e Inspección Inicial:** Inspección de estructuras, revisión de tipo de variables en las 3 fuentes de datos y verificación de nulos tipo MAR (*Missing At Random*).
-2. **Paso 3: Limpieza de Datos:** Tratamiento de centinelas (`-999`, `"?"`), estandarización a `datetime64` y depuración de fechas fuera de alcance (post-2024).
-3. **Paso 4: Consolidación (`user_profile`):** Agregación de consumo por `user_id` (`cant_mensajes`, `cant_llamadas`, `cant_minutos_llamada`) y unión (*left merge*) con la tabla `users`.
-4. **Paso 5: Visualización y Outliers:** Gráficos de distribución (histogramas con `hue='plan'`) y evaluación de límites mediante el método IQR en diagramas de caja (*Boxplots*).
-5. **Paso 6: Segmentación:** Clasificación multivariable en categorías de comportamiento (`grupo_uso`: Bajo, Medio, Alto) y grupos demográficos (`grupo_edad`: Joven, Adulto, Adulto Mayor).
-6. **Paso 7: Informe Ejecutivo:** Conclusiones estratégicas sobre la retención, rediseño de oferta de planes y oportunidades de *Up-selling* para superusuarios.
+1. **Paso 1: Carga e Inspección Inicial:** Lectura de los 3 archivos CSV (`users.csv`, `usage.csv`, `plans.csv`) e inspección de estructuras y tipos de datos.
+2. **Paso 2: Diagnóstico de Nulos y Mecanismo MAR:** Identificación de patrones *Missing At Random* (nulos de duración en SMS y nulos de caracteres en llamadas).
+3. **Paso 3: Limpieza y Corrección de Fechas:** Tratamiento de centinelas (`-999`, `"?"`), estandarización a `datetime64` y depuración de registros con fechas inconsistentes (post-2024).
+4. **Paso 4: Consolidación (`user_profile`):** Agregación del consumo por `user_id` (`cant_mensajes`, `cant_llamadas`, `cant_minutos_llamada`) y unión (*left merge*) con la tabla `users`.
+5. **Paso 5: Visualización de Distribuciones:** Generación de histogramas comparativos por tipo de tarifa (`hue='plan'`) para evaluar las dinámicas de uso.
+6. **Paso 6: Detección y Tratamiento de Outliers:** Inspección de valores atípicos mediante diagramas de caja (*Boxplots*) y cálculo de límites superiores con el método IQR.
+7. **Paso 7: Segmentación de Clientes:** Clasificación categórica de la cartera por intensidad de consumo (`grupo_uso`) y rangos demográficos (`grupo_edad`).
+8. **Paso 8: Informe Ejecutivo para Stakeholders:** Conclusiones estratégicas, análisis de calidad de datos y recomendaciones comerciales para ConnectaTel.
